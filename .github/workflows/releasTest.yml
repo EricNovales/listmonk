@@ -53,7 +53,7 @@ jobs:
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@0.24.0
         with:
-          image-ref: ${{ steps.meta.outputs.tags }}
+          image-ref: ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
           format: table
           exit-code: 1
           severity: CRITICAL,HIGH
