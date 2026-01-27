@@ -94,6 +94,7 @@ var (
 )
 
 func init() {
+	log.Println("===== MODO DESARROLLO LOCAL =====")
 	// Initialize commandline flags.
 	initFlags(ko)
 

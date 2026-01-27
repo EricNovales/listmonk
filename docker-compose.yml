@@ -10,7 +10,10 @@ services:
   # listmonk app
   app:
     # image: listmonk/listmonk:latest
-    image: ghcr.io/ericnovales/listmonk-ericmod:1.2
+    #image: ghcr.io/ericnovales/listmonk_ericmod:latest
+    #image: listmonk-ericmod_compile:1.1
+    image: listmonk-ericmod_compile_redcolor:1.2
+    user: "0:0"
     container_name: listmonk_app
     restart: unless-stopped
     ports:
@@ -37,15 +40,11 @@ services:
       LISTMONK_db__max_idle: 25
       LISTMONK_db__max_lifetime: 300s
       TZ: Etc/UTC
+      PUID: "1000"
+      PGID: "1000"
       LISTMONK_ADMIN_USER: ${LISTMONK_ADMIN_USER:-}           # If these (optional) are set during the first `docker compose up`, then the Super Admin user is automatically created.
       LISTMONK_ADMIN_PASSWORD: ${LISTMONK_ADMIN_PASSWORD:-}   # Otherwise, the user can be setup on the web app after the first visit to http://localhost:9000
-      LISTMONK_smtp__enabled: "true"
-      LISTMONK_smtp__host: mailpit
-      LISTMONK_smtp__port: 1025
-      LISTMONK_smtp__auth_protocol: none
-      LISTMONK_smtp__tls: false
-      LISTMONK_smtp__skip_tls_verify: true
-      LISTMONK_smtp__from_email: test@example.com
+      
 
     volumes:
       - ./uploads:/listmonk/uploads:rw                        # Mount an uploads directory on the host to /listmonk/uploads inside the container.
